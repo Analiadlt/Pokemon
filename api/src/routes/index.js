@@ -3,23 +3,11 @@ const { Router } = require('express');
 const {Pokemon, Tipo} = require('../db');
 //const axios = require('axios');
 const router = Router();
-const { getApiInfo, getDbInfo, getAllPokemons, getApiPokemonById, getApiPokemonByName} = require('../utils/utils');
+const { getApiInfo, getDbInfo, getAllPokemons, getApiPokemonById, getPokemonByName} = require('../utils/utils');
 // Configurar los routers
 // Ejemplo: router.use('/auth', authRouter);
 const axios = require('axios');  
 
-
-// acá está incluida la busqueda de todos y la por query
-router.get ('/pokemons', async (req, res)=>{
-  const name = req.query.name;
-  let allPokemons = await getAllPokemons();
-  if (name) {
-    let pokemonName = await allPokemons.filter (pok => pok.name.tolowerCase().includes(name.tolowerCase()));
-    pokemonName.length ? res.status(200).send(pokemonName) : res.status(404).send('Pokemon not find.')
-  } else {
-    res.status(200).send(allPokemons);
-  }
-})
 
 router.get('/pokemons/:id', async (req, res)=> {
   const id = req.params.id;
@@ -33,6 +21,26 @@ router.get('/pokemons/:id', async (req, res)=> {
   } catch {
     res.status(404).send('Pokemon not found.');
   }
+})
+
+
+// acá está incluida la busqueda de todos y la por query
+router.get ('/pokemons', async (req, res)=>{
+  let name = req.query.name;
+
+try {
+    if (name) {
+        name = name.toLowerCase().trim()
+        let pokemonName = await getPokemonByName(name);
+        pokemonName ? res.status(200).send(pokemonName) : res.status(404).send('Pokemon not found.')
+      } else {
+        let allPokemons = await getAllPokemons();
+        res.status(200).send(allPokemons);
+     }
+} catch {
+    res.status(404).send('Pokemon not found.')
+}
+ 
 })
 
 

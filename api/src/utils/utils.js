@@ -3,38 +3,21 @@ const {Pokemon , Tipo} = require('../db');
 const axios = require('axios');
 
 
-// const getApiInfo = async () => {
-//  //trae TODOS los pokemons de la Api
-//   const apiUrl = await axios.get('https://pokeapi.co/api/v2/pokemon'); 
-//   const apiInfo = await apiUrl.data.results.map(pok => {
-//     return {
-//           name: pok.name,
-//           url: pok.url, 
-
-//     };  
-//     });
-//   return [...apiInfo, apiUrl.data.next];
-// }
-
 const getApiInfo = async () => {
- //trae TODOS los pokemons de la Api
- // const apiUrl = await axios.get('https://pokeapi.co/api/v2/pokemon'); 
-
  //probando con los 40 primeros
   const apiUrl = await axios.get('https://pokeapi.co/api/v2/pokemon?limit=40'); 
   let allPokemons = apiUrl.data.results.map(pok => axios.get(pok.url)); //traigo la info de cada pokemon por la url
   const dataPokemon= await Promise.all(allPokemons); //paso el array a promesas para resolverlo
   let infoAllPokemons= [];
-  dataPokemon.forEach((data) => {
+  dataPokemon.forEach((d) => {
     infoAllPokemons.push({
-    id: data.data.id,
-    name: data.name,
-    height: data.data.height,
-    img: data.data.sprites.other.home.front_default,
-    stats: data.data.stats.map(sta => sta.stat.name),
-    types: data.data.types.map(typ => typ.type.name),
-    weight: data.data.weight,
-
+    name: d.data.name,
+    img: d.data.sprites.other.home.front_default,
+    types: d.data.types.map(typ => typ.type.name),
+  //id: d.data.id,
+  //height: d.data.height,
+  //weight: d.data.weight,
+  //  stats: d.data.stats.map(sta => sta.stat.name),
     })
   })
   return infoAllPokemons;
@@ -66,13 +49,13 @@ const getApiPokemonById = async (id) => {
   const apiUrl = await axios.get(`https://pokeapi.co/api/v2/pokemon/${id}/`); 
   const data=apiUrl.data;
   const apiInfo = {
-    id: data.id,
     name: data.name,
-    height: data.height,
     img: data.sprites.other.home.front_default,
-    stats: data.stats.map(sta => sta.stat.name),
     types: data.types.map(typ => typ.type.name),
+    id: data.id,
+    height: data.height,
     weight: data.weight,
+    stats: data.stats.map(sta => sta.stat.name),
   }
   return apiInfo;
 }
@@ -81,22 +64,57 @@ const getApiPokemonByName = async (name) => {
   const apiUrl = await axios.get(`https://pokeapi.co/api/v2/pokemon/${name}/`); 
   const data=apiUrl.data;
   const apiInfo = {
-    id: data.id,
     name: data.name,
-    height: data.height,
     img: data.sprites.other.home.front_default,
-    stats: data.stats.map(sta => sta.stat.name),
     types: data.types.map(typ => typ.type.name),
+    id: data.id,
+    height: data.height,
     weight: data.weight,
+    stats: data.stats.map(sta => sta.stat.name),
   }
   return apiInfo;
 }
 
+const getDbPokemonByName = async (name) => {
+  //trae los pokemons de la DB
+  const dbInfo = await Pokemon.findAll({
+    where: { name },
+    include: {
+      model: Tipo,
+      attributes: ['name'],
+      through: {
+        attributes: [],
+      }, 
+    },
+  })
+
+  // let pokemonsDB = dbInfo.map(poke=>{
+ //                return ({
+ //                    id: poke.id,
+ //                    name:poke.name,
+ //                    img:poke.img,
+ //                    types: mapTypes(poke.types)
+ //                })
+ //            })
+  return dbInfo;
+}
+
+
+const getPokemonByName = async (name) => {
+  const apiInfo = await getApiPokemonByName(name);
+  const dbInfo = await getDbPokemonByName(name);
+
+  if (apiInfo && dbInfo)  return [apiInfo].concat(dbInfo);
+  if (apiInfo) return apiInfo;
+  if (dbInfo) return dbInfo;
+  return [name];
+
+}
 
 module.exports = {
   getApiInfo,
   getDbInfo,
   getAllPokemons,
   getApiPokemonById,
-  getApiPokemonByName
+  getPokemonByName
 }
