@@ -13,7 +13,6 @@ const axios = require('axios');
 router.get ('/pokemons', async (req, res)=>{
   const name = req.query.name;
   let allPokemons = await getAllPokemons();
-  //allPokemons = await getAllPokemons();
   if (name) {
     let pokemonName = await allPokemons.filter (pok => pok.name.tolowerCase().includes(name.tolowerCase()));
     pokemonName.length ? res.status(200).send(pokemonName) : res.status(404).send('Pokemon not find.')
@@ -34,8 +33,6 @@ router.get('/pokemons/:id', async (req, res)=> {
   } catch {
     res.status(404).send('Pokemon not found.');
   }
-  
-  
 })
 
 
