@@ -54,19 +54,20 @@ router.get ('/types', async (req, res)=>{
   res.send(allTypes);
 })
 
-router.post('/pokemons', async (req, res)=>{
-  //let {img, name, types, id, stats, height, weight} = req.body;
-  let {name, height, weight, tipo} = req.body;
 
+
+router.post('/pokemons', async (req, res)=>{
+  let {name, height, weight, types, life, attack, defense, speed} = req.body;
   let pokemonCreated = await Pokemon.create ({
-    //id, name, life, strength, defender, speed, height, weight, img, tipo
-    name, height, weight, tipo
+    name, height, weight, life, attack, defense, speed
   })
 
+// busca los Tipos cargados
   let tipoDb = await Tipo.findAll({
-    where: {name : tipo}
+    where: { name : types }
   })
   pokemonCreated.addTipo(tipoDb);
+
   res.send('Pokemon created successfully.')
 });
 

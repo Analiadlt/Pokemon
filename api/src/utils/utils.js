@@ -17,7 +17,12 @@ const getApiInfo = async () => {
   //id: d.data.id,
   //height: d.data.height,
   //weight: d.data.weight,
-  //  stats: d.data.stats.map(sta => sta.stat.name),
+  //stats: data.stats.map(sta => {
+  //      return {
+  //      name: sta.stat.name, 
+  //      base: sta.base_stat,
+  //    }      
+  //  }),
     })
   })
   return infoAllPokemons;
@@ -55,7 +60,12 @@ const getApiPokemonById = async (id) => {
     id: data.id,
     height: data.height,
     weight: data.weight,
-    stats: data.stats.map(sta => sta.stat.name),
+    stats: data.stats.map(sta => {
+        return {
+        name: sta.stat.name, 
+        base: sta.base_stat,
+      }      
+    })
   }
   return apiInfo;
 }
@@ -70,7 +80,12 @@ const getApiPokemonByName = async (name) => {
     id: data.id,
     height: data.height,
     weight: data.weight,
-    stats: data.stats.map(sta => sta.stat.name),
+    stats: data.stats.map(sta => {
+        return {
+        name: sta.stat.name, 
+        base: sta.base_stat,
+      }      
+    })
   }
   return apiInfo;
 }
