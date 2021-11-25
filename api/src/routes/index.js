@@ -3,7 +3,9 @@ const { Router } = require('express');
 const {Pokemon, Tipo} = require('../db');
 //const axios = require('axios');
 const router = Router();
-const { getApiInfo, getDbInfo, getAllPokemons, getApiPokemonById, getPokemonByName} = require('../utils/utils');
+const { getAllPokemons, getApiPokemonById, getPokemonByName} = require('../utils/utilsAPI');
+
+
 // Configurar los routers
 // Ejemplo: router.use('/auth', authRouter);
 const axios = require('axios');  
@@ -15,30 +17,38 @@ router.get('/pokemons/:id', async (req, res)=> {
   let pokemonDbInfo=null;
   try {
       if (id.length < 5) {pokemonApiInfo = await getApiPokemonById(id);}
-        else {pokemonDbInfo = Pokemon.findAll()};
-        if (pokemonApiInfo) res.status(200).json(pokemonApiInfo);
-        if (pokemonDbInfo) res.status(200).json(pokemonDbInfo);
+        else {pokemonDbInfo = await Pokemon.findOne(
+            { where: { id },
+               include: { model: Tipo, 
+                  attributes: ['name'],
+                  through: {
+                      attributes: [],
+                    }, 
+                  },
+              })};
+      if (pokemonApiInfo) res.status(200).json(pokemonApiInfo);
+      if (pokemonDbInfo) res.status(200).json(pokemonDbInfo);
   } catch {
     res.status(404).send('Pokemon not found.');
   }
 })
 
 
-// acá está incluida la busqueda de todos y la por query
+// acá está incluida la busqueda de todos y la de name por query
 router.get ('/pokemons', async (req, res)=>{
+  
   let name = req.query.name;
-
-try {
+  try {
     if (name) {
         name = name.toLowerCase().trim()
-        let pokemonName = await getPokemonByName(name);
-        pokemonName ? res.status(200).send(pokemonName) : res.status(404).send('Pokemon not found.')
+        const pokemonName = await getPokemonByName(name);
+        (pokemonName.length>0) ? res.status(200).send(pokemonName) : res.status(404).send('Pokemon not found.')
       } else {
         let allPokemons = await getAllPokemons();
         res.status(200).send(allPokemons);
      }
-} catch {
-    res.status(404).send('Pokemon not found.')
+} catch (e) {
+   res.status(404).send('Pokemon not found.');  
 }
  
 })
