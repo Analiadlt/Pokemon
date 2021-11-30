@@ -13,7 +13,6 @@ module.exports = (sequelize) => {
     height:{ type: DataTypes.INTEGER},
     weight:{ type: DataTypes.INTEGER},
     img: {type: DataTypes.STRING},
-  }
- // ,{ timestamps: false}
+  },{ updatedAt: false}
  );
 };

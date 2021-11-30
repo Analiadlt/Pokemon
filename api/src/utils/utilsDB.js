@@ -1,29 +1,31 @@
 const { Router } = require('express');
-const {Pokemon , Tipo} = require('../db');
+const {Pokemon , Type} = require('../db');
 const axios = require('axios');
 
 
 const getDbInfo = async () => {
   //trae los pokemons de la DB
-  return Pokemon.findAll({
+  const allPokemons = await Pokemon.findAll({
     include: {
-      model: Tipo,
+      model: Type,
       attributes: ['name'],
       through: {
         attributes: [],
       }, 
     }
-  })
+  });
+  return allPokemons;
 }
 
 
-const getDbPokemonByName = async (name) => {
+const getDbPokemonByName = async(name) => {
   //trae los pokemons de la DB
 
-  const dbInfo = await Pokemon.findAll({
+ // const dbInfo = await Pokemon.findAll({
+    const findPokemon = await Pokemon.findAll({
     where: { name },
     include: {
-      model: Tipo,
+      model: Type,
       attributes: ['name'],
       through: {
         attributes: [],
@@ -31,6 +33,7 @@ const getDbPokemonByName = async (name) => {
     },
   })
 
+    return findPokemon;
   // let pokemonsDB = dbInfo.map(poke=>{
  //                return ({
  //                    id: poke.id,
@@ -39,7 +42,8 @@ const getDbPokemonByName = async (name) => {
  //                    types: mapTypes(poke.types)
  //                })
  //            })
-   return dbInfo;
+
+ //  return dbInfo;
 }
 
 

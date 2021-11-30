@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const {Pokemon , Tipo} = require('../db');
+const {Pokemon , Type} = require('../db');
 const axios = require('axios');
 const { getDbInfo, getDbPokemonByName} = require('../utils/utilsDB');
 
@@ -14,15 +14,7 @@ const getApiInfo = async () => {
     name: d.data.name,
     img: d.data.sprites.other.home.front_default,
     types: d.data.types.map(typ => typ.type.name),
-  //id: d.data.id,
-  //height: d.data.height,
-  //weight: d.data.weight,
-  //stats: data.stats.map(sta => {
-  //      return {
-  //      name: sta.stat.name, 
-  //      base: sta.base_stat,
-  //    }      
-  //  }),
+    id: d.data.id
     })
   })
   return infoAllPokemons;
@@ -33,8 +25,8 @@ const getApiInfo = async () => {
 const getAllPokemons = async() => {
   const apiInfo = await getApiInfo();
   const dbInfo = await getDbInfo();
-
-  return apiInfo.concat(dbInfo);
+  const result = apiInfo.concat(dbInfo);
+  return result;
 } 
 
 const getApiPokemonById = async (id) => {
