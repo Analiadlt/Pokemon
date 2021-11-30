@@ -7,14 +7,14 @@ import Home from './components/Home';
 function App() {
   return (
     <BrowserRouter>
-    <div className="App">
-   
-      <Routes>
-       <Route path="/" element={<LandingPage />}></Route>
-       <Route path="/home" element={<Home />}></Route>
-      </Routes>
-      
-    </div>
+      <div className="App">
+     
+        <Routes>
+         <Route exact path="/" element={<LandingPage />}></Route>
+         <Route path="/home" element={<Home />}></Route>
+        </Routes>
+        
+      </div>
     </BrowserRouter>
     
   );

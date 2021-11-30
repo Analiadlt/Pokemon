@@ -9,3 +9,26 @@ export function getPokemons() {
 		})
 	}
 }
+
+export function filterPokemonsByTypes(payload) {
+	return {
+			type: 'FILTER_BY_TYPES',
+			payload
+	}
+}
+
+
+export function filterOrigCrea(payload) {
+	return {
+			type: 'FILTER_ORIG_CREA',
+			payload
+	}
+}
+
+
+export function orderByName(payload) {
+	return {
+			type: 'ORDER_BY_NAME',
+			payload
+	}
+}

@@ -1,7 +1,7 @@
 import React from 'react';
 import {useState, useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {getPokemons} from '../actions';
+import {getPokemons, filterPokemonsByTypes, filterOrigCrea, orderByName} from '../actions';
 import {Link} from 'react-router-dom';
 import PokemonCard from './PokemonCard';
 
@@ -13,50 +13,70 @@ export default function Home (){
 		dispatch(getPokemons()); // reemplaza mapDispatchToProps y el mapStateToProps
 	}, [dispatch]) //el [] es para que no sea un bucle infinito
 
+	const [order, setOrder] = useState('');
+	const [currentPage, setCurrentPage] = useState(1);
+
 	function handleClick(e) {
 		e.preventDefault();
 		dispatch(getPokemons());
+	}
+
+	function handleFilterType(e){
+		dispatch(filterPokemonsByTypes(e.target.value));
+	}
+
+	function handleOrigCrea(e){
+		dispatch(filterOrigCrea(e.target.value));
+	}
+
+	function handleOnSort(e){
+		e.preventDefault();
+		dispatch(orderByName(e.target.value));
+		//esto hace que se renderice la home cdo selecciono 'asc' o 'desc'
+		setCurrentPage(1); 
+		setOrder(`Ordered ${e.target.value}`)
 	}
 
 	return (
 		<div>
 			<Link to = '/pokemon'>Crear Pokemon</Link>
 			<h1>Pokemons's World</h1>
-			<button onClick={e=>{handleClick(e)}}>
-				Volver a cargar todos los pokemons
+			<button onClick={e=>{return handleClick(e)}}>
+				Reload Pokemons
 			</button>
 		<div>
-			<select>
-				<option value="asc">Ascendente</option>
-				<option value="desc">Descendente</option>
+			<select onChange={e=> handleOnSort(e)}>
+				<option value="ascName">Ascending by Name</option>
+				<option value="descName">Descending by Name</option>
 			</select>
 			<select>
-				<option value="asc">Ascendente</option>
-				<option value="desc">Descendente</option>
+				<option value="ascAt">Ascending by Attack</option>
+				<option value="descAt">Descending  by Attack</option>
 			</select>
-			<select> 
-				<option value="1">Figthing</option>
-				<option value="2">Normal</option>
-				<option value="3">Poison</option>
-				<option value="4">Flying</option>
-				<option value="5">Ground</option>
-				<option value="6">Rock</option>
-				<option value="7">Bug</option>
-				<option value="8">Ghost</option>
-				<option value="9">Steel</option>
-				<option value="10">Fire</option>
-				<option value="11">Water</option>
-				<option value="12">Grass</option>
-				<option value="13">Electric</option>
-				<option value="14">Psychic</option>
-				<option value="15">Ice</option>
-				<option value="16">Dragon</option>
-				<option value="17">Dark</option>
-				<option value="18">Fairy</option>
-				<option value="19">Unknow</option>
-				<option value="20">Shadow</option>
+			<select name = "types" onChange={e=> handleFilterType(e)}> 
+				<option value="All">All</option>
+				<option value="Figthing">Figthing</option>
+				<option value="Normal">Normal</option>
+				<option value="Poison">Poison</option>
+				<option value="Flying">Flying</option>
+				<option value="Ground">Ground</option>
+				<option value="Rock">Rock</option>
+				<option value="Bug">Bug</option>
+				<option value="Ghost">Ghost</option>
+				<option value="Steel">Steel</option>
+				<option value="Fire">Fire</option>
+				<option value="Water">Water</option>
+				<option value="Grass">Grass</option>
+				<option value="Electric">Electric</option>
+				<option value="Psychic">Psychic</option>
+				<option value="Ice">Ice</option>
+				<option value="Dragon">Dragon</option>
+				<option value="Dark">Dark</option>
+				<option value="Fairy">Fairy</option>
+				<option value="Unknow">Unknow</option>
+				<option value="Shadow">Shadow</option>
 			</select>
-			<select>
+			<select onChange={e=> handleOrigCrea(e)}>
 				<option value="all">All</option>
 				<option value="orig">Original</option>
 				<option value="crea">Created</option>
@@ -64,14 +84,14 @@ export default function Home (){
 {
 	allPokemons && allPokemons.map((pok) => {
 		return (
-			<fragment>
+			<>
 				<Link to={"/home/" + pok.id}>
-					<PokemonCard name={pok.name} image={pok.img} types={pok.types} key={pok.id}/>
+					<PokemonCard key={pok.id} id={pok.id} name={pok.name} image={pok.img} types={pok.types} />
 				</Link>
-			</fragment>
-		);
-		
-	})}
+			</>
+		);		
+	})
+}
 	</div>
 </div>	
 		)
