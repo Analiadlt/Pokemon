@@ -1,6 +1,8 @@
 const initialState = {
 	allPokemons: [],
-	pokemons: []
+	pokemons: [],
+	detail: [],
+	types: []
 }
 
 function rootReducer (state=initialState, action) {
@@ -10,6 +12,15 @@ function rootReducer (state=initialState, action) {
 				...state,
 				pokemons: action.payload,
 				allPokemons: action.payload
+			}
+		case 'POST_POKEMONS':
+			return {
+				...state,
+			}
+		case 'GET_POKEMON_BY_NAME':
+			return {
+				...state,
+				pokemons: action.payload
 			}
 		case 'FILTER_BY_TYPES':
 			const allPokemons = state.allPokemons;
@@ -23,11 +34,16 @@ function rootReducer (state=initialState, action) {
 		case 'FILTER_ORIG_CREA':
 			const pokemonsAll = state.allPokemons;
 			let pokemonsFilter=[];
-			if (action.payload === 'All') return pokemonsAll;
-			if (action.payload === 'crea') {
-				pokemonsFilter = pokemonsAll.filter(pok => pok.createdAt !== undefined)	
+			if (action.payload === 'all') return pokemonsAll;
+			// if (action.payload === 'crea') {
+			// 	pokemonsFilter = pokemonsAll.filter(pok => pok.createdAt !== undefined)	
+			// } else {
+			//    	pokemonsFilter = pokemonsAll.filter(pok => !pok.createdAt)		
+			// };
+			if (action.payload === 'orig') {
+				pokemonsFilter = pokemonsAll.filter(pok => typeof pok.id === 'number')	
 			} else {
-			   	pokemonsFilter = pokemonsAll.filter(pok => pok.createdAt === undefined)		
+			   	pokemonsFilter = pokemonsAll.filter(pok => typeof pok.id !== 'number')		
 			};
 			return {
 				...state,
@@ -41,16 +57,26 @@ function rootReducer (state=initialState, action) {
 					return 0;
 				}) :
 				state.allPokemons.sort(function(a,b) {
-					if (a.name> b.name) return -1;
+					if (a.name > b.name) return -1;
 					if (b.name > a.name) return 1;
 					return 0;
 				})
-				console.log('sortedArr ', sortedArr)
+
 				return {
 					...state,
 					pokemons: sortedArr
 				}	
-
+		case 'GET_TYPES':
+			return {
+				...state,
+				types: action.payload,
+			}
+		case 'GET_POKEMON_DETAIL':
+			
+			return {
+				...state,
+				detail: action.payload,
+			}
 		default:
 			return state;	
 	}

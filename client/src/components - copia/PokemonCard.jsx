@@ -3,8 +3,9 @@ import React from 'react';
 
 
 export default function Card({name, image, types, id}) {
-	const foo = types.map(function(typ) {
-   			return (<p key={typ}>{typ}</p>)
+	 
+	const foo = types.map(function(typ, index) {
+   			return <p key={index}>{typ}</p>
 	 		})
 
 	return (

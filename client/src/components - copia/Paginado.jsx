@@ -10,8 +10,8 @@ export default function Paginado ({pokemonsByPage, cantPokemons, paginado}) {
 			<ul>
 				{ pageNumbers &&
 					pageNumbers.map(number => (
-						<ul className='number' key={number}>
-							<p onClick={()=> paginado(number)}>{number}</p>
+						<ul className='number' key={number.toString()}>
+							<a onClick={()=> paginado(number)}>{number}</a>
 						</ul>	
 					))}
 			</ul>

@@ -7,7 +7,6 @@ export default function SearchBar(){
 	const dispatch = useDispatch();
 	const [name, setName] = useState('');
 
-
 function handleInputChange(e) {
 	e.preventDefault();
 	setName(e.target.value);
@@ -16,7 +15,6 @@ function handleInputChange(e) {
 function handleSubmit (e) {
 	e.preventDefault();
 	dispatch(getPokemonByName(name));
-	setName('');
 }
 
 return (
