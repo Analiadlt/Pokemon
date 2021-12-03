@@ -11,22 +11,20 @@ const getApiInfo = async () => {
   let infoAllPokemons= [];
   dataPokemon.forEach((d) => {
     infoAllPokemons.push({
+    id: d.data.id,
     name: d.data.name,
     img: d.data.sprites.other.home.front_default,
     types: d.data.types.map(typ => typ.type.name),
-    id: d.data.id
     })
   })
   return infoAllPokemons;
 }
 
 
-
 const getAllPokemons = async() => {
   const apiInfo = await getApiInfo();
   const dbInfo = await getDbInfo();
-  const result = apiInfo.concat(dbInfo);
-  return result;
+  return apiInfo.concat(dbInfo);
 } 
 
 const getApiPokemonById = async (id) => {
@@ -50,7 +48,6 @@ const getApiPokemonById = async (id) => {
 }
 
 const getApiPokemonByName = async (name) => {
-
   try {
       const apiUrl = await axios.get(`https://pokeapi.co/api/v2/pokemon/${name}/`); 
         const data=apiUrl.data;
@@ -71,7 +68,7 @@ const getApiPokemonByName = async (name) => {
         return apiInfo;
   
   } catch (e) {
-        
+       return '';
   }  
 }
 
@@ -83,6 +80,7 @@ const getPokemonByName = async (name) => {
     
       if (apiInfo) return apiInfo;
       if (dbInfo) return dbInfo;
+    
       return [name];
 }
 

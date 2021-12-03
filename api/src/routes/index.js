@@ -80,21 +80,26 @@ router.get ('/pokemons/?attack', async (req, res)=>{
 
 router.post('/pokemons', async (req, res)=>{
   const {name, height, weight, types, life, attack, defense, speed} = req.body;
+try{
+    let pokemonCreated = await Pokemon.create ({
+        name, height, weight, life, attack, defense, speed
+      })
 
-  let pokemonCreated = await Pokemon.create ({
-    name, height, weight, life, attack, defense, speed
-  })
+    // busca los Tipos cargados
+      let typeDb = await Type.findAll({
+        where: { name : types }
+      })
+     
+      typeDb && pokemonCreated.addType(typeDb);
 
-// busca los Tipos cargados
-  let typeDb = await Type.findAll({
-    where: { name : types }
-  })
+
+      res.send('Pokemon created successfully.')
+    
+} catch (e) {
+    res.send(e)
+}
   
-  typeDb && pokemonCreated.addType(typeDb);
-
-  res.send('Pokemon created successfully.')
 });
-
 
 
 module.exports = router;

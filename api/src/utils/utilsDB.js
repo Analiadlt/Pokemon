@@ -5,7 +5,7 @@ const axios = require('axios');
 
 const getDbInfo = async () => {
   //trae los pokemons de la DB
-  const allPokemons = await Pokemon.findAll({
+  const dbPokemons = await Pokemon.findAll({
     include: {
       model: Type,
       attributes: ['name'],
@@ -14,14 +14,13 @@ const getDbInfo = async () => {
       }, 
     }
   });
-  return allPokemons;
+  return dbPokemons;
 }
 
 
 const getDbPokemonByName = async(name) => {
   //trae los pokemons de la DB
 
- // const dbInfo = await Pokemon.findAll({
     const findPokemon = await Pokemon.findAll({
     where: { name },
     include: {
@@ -32,8 +31,10 @@ const getDbPokemonByName = async(name) => {
       }, 
     },
   })
-
+    console.log(' findPokemon ', findPokemon)
     return findPokemon;
+
+
   // let pokemonsDB = dbInfo.map(poke=>{
  //                return ({
  //                    id: poke.id,
