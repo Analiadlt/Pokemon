@@ -14,11 +14,11 @@ export default function Home (){
 
 //estados y variables para paginado
 	const [currentPage, setCurrentPage] = useState(1);
-	const pokemonsByPage = 120;
+	const pokemonsByPage = 12;
 	var indexOfLastPokemon = currentPage * pokemonsByPage;
 	const indexOfFirstPokemon = indexOfLastPokemon - pokemonsByPage;
 
-	const currentPokemons = allPokemons.slice(indexOfFirstPokemon, indexOfLastPokemon);
+	const currentPokemons = allPokemons?.slice(indexOfFirstPokemon, indexOfLastPokemon);
 
 	const paginado = (pageNumber) => {
 		setCurrentPage(pageNumber)
@@ -99,7 +99,7 @@ export default function Home (){
 
 	<Paginado
 		pokemonsByPage = {pokemonsByPage}
-		cantPokemons={allPokemons.length}
+		cantPokemons={allPokemons?.length}
 		paginado={paginado}
 	/>
 	<SearchBar />

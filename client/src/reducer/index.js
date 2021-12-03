@@ -25,7 +25,7 @@ function rootReducer (state=initialState, action) {
 		case 'FILTER_BY_TYPES':
 			const allPokemons = state.allPokemons;
 			const typesFilter = action.payload ==='All'? allPokemons 
-			: allPokemons.filter(pok => pok.types.includes(action.payload.toLowerCase())			
+			: allPokemons?.filter(pok => pok.types.includes(action.payload.toLowerCase())			
 			);
 			return {
 				...state,
@@ -35,16 +35,16 @@ function rootReducer (state=initialState, action) {
 			const pokemonsAll = state.allPokemons;
 			let pokemonsFilter=[];
 			if (action.payload === 'all') return pokemonsAll;
-			// if (action.payload === 'crea') {
-			// 	pokemonsFilter = pokemonsAll.filter(pok => pok.createdAt !== undefined)	
-			// } else {
-			//    	pokemonsFilter = pokemonsAll.filter(pok => !pok.createdAt)		
-			// };
-			if (action.payload === 'orig') {
-				pokemonsFilter = pokemonsAll.filter(pok => typeof pok.id === 'number')	
+			if (action.payload === 'crea') {
+				pokemonsFilter = pokemonsAll?.filter(pok => pok.createdAt !== undefined)	
 			} else {
-			   	pokemonsFilter = pokemonsAll.filter(pok => typeof pok.id !== 'number')		
+			   	pokemonsFilter = pokemonsAll?.filter(pok => !pok.createdAt)		
 			};
+			// if (action.payload === 'orig') {
+			// 	pokemonsFilter = pokemonsAll?.filter(pok => typeof pok.id === 'number')	
+			// } else {
+			//    	pokemonsFilter = pokemonsAll?.filter(pok => typeof pok.id !== 'number')		
+			// };
 			return {
 				...state,
 				pokemons: pokemonsFilter 
