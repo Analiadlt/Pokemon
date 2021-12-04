@@ -9,14 +9,16 @@ import SearchBar from './SearchBar';
 
 export default function Home (){
 	const dispatch = useDispatch();
+	//trae del store el state con todos los pokemons o los filtrados 'pokemons'
 	const allPokemons = useSelector((state) => state.pokemons);
 
 //estados y variables para paginado
 	const [currentPage, setCurrentPage] = useState(1);
-	const [pokemonsByPage, setPokemonsByPage] = useState(12);
-	const indexOfLastPokemon = currentPage * pokemonsByPage;
+	const pokemonsByPage = 12;
+	var indexOfLastPokemon = currentPage * pokemonsByPage;
 	const indexOfFirstPokemon = indexOfLastPokemon - pokemonsByPage;
-	const currentPokemons = allPokemons.slice(indexOfFirstPokemon, indexOfLastPokemon);
+
+	const currentPokemons = allPokemons?.slice(indexOfFirstPokemon, indexOfLastPokemon);
 
 	const paginado = (pageNumber) => {
 		setCurrentPage(pageNumber)
@@ -26,7 +28,7 @@ export default function Home (){
 		dispatch(getPokemons()); // reemplaza mapDispatchToProps y el mapStateToProps
 	}, [dispatch]) //el [] es para que no sea un bucle infinito
 
-	//const [order, setOrder] = useState('');
+	const [order, setOrder] = useState('');
 
 	function handleClick(e) {
 		e.preventDefault();
@@ -43,21 +45,22 @@ export default function Home (){
 
 	function handleOnSort(e){
 		e.preventDefault();
-		dispatch(orderByName(e.target.value));
+		if (e.target.value !== 'without') dispatch(orderByName(e.target.value));
 		//esto hace que se renderice la home cdo selecciono 'asc' o 'desc'
 		setCurrentPage(1); 
-		//setOrder(`Ordered ${e.target.value}`)
+		setOrder(`Ordered ${e.target.value}`)
 	}
 
 	return (
 		<div>
-			<Link to = '/pokemon'>Crear Pokemon</Link>
+			<Link to = '/pokemon'>New Pokemon Creation</Link>
 			<h1>Pokemons's World</h1>
 			<button onClick={e=>{return handleClick(e)}}>
 				Reload Pokemons
 			</button>
 		<div>
 			<select onChange={e=> handleOnSort(e)}>
+				<option value="without">Without Order</option>
 				<option value="ascName">Ascending by Name</option>
 				<option value="descName">Descending by Name</option>
 			</select>
@@ -67,26 +70,26 @@ export default function Home (){
 			</select>
 			<select name = "types" onChange={e=> handleFilterType(e)}> 
 				<option value="All">All</option>
+				<option value="Bug">Bug</option>
+				<option value="Dark">Dark</option>
+				<option value="Dragon">Dragon</option>
+				<option value="Electric">Electric</option>
+				<option value="Fairy">Fairy</option>
 				<option value="Figthing">Figthing</option>
+				<option value="Fire">Fire</option>
+				<option value="Flying">Flying</option>
+				<option value="Ghost">Ghost</option>
+				<option value="Grass">Grass</option>
+				<option value="Ground">Ground</option>
+				<option value="Ice">Ice</option>
 				<option value="Normal">Normal</option>
 				<option value="Poison">Poison</option>
-				<option value="Flying">Flying</option>
-				<option value="Ground">Ground</option>
-				<option value="Rock">Rock</option>
-				<option value="Bug">Bug</option>
-				<option value="Ghost">Ghost</option>
-				<option value="Steel">Steel</option>
-				<option value="Fire">Fire</option>
-				<option value="Water">Water</option>
-				<option value="Grass">Grass</option>
-				<option value="Electric">Electric</option>
 				<option value="Psychic">Psychic</option>
-				<option value="Ice">Ice</option>
-				<option value="Dragon">Dragon</option>
-				<option value="Dark">Dark</option>
-				<option value="Fairy">Fairy</option>
-				<option value="Unknow">Unknow</option>
+				<option value="Rock">Rock</option>
 				<option value="Shadow">Shadow</option>
+				<option value="Steel">Steel</option>
+				<option value="Unknow">Unknow</option>		
+				<option value="Water">Water</option>			
 			</select>
 			<select onChange={e=> handleOrigCrea(e)}>
 				<option value="all">All</option>
@@ -96,16 +99,17 @@ export default function Home (){
 
 	<Paginado
 		pokemonsByPage = {pokemonsByPage}
-		cantPokemons={allPokemons.length}
+		cantPokemons={allPokemons?.length}
 		paginado={paginado}
 	/>
 	<SearchBar />
 	{
 		currentPokemons && currentPokemons.map((pok) => {
+			const id = pok.id;
 			return (
 				<>
 				<Link to={"/home/" + pok.id}>
-					<PokemonCard key={pok.id} id={pok.id} name={pok.name} image={pok.img} types={pok.types} />
+					<PokemonCard key={id} id={pok.id} name={pok.name} image={pok.img} types={pok.types} />
 				</Link>
 				</>
 			);		

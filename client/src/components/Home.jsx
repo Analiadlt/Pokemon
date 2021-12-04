@@ -6,6 +6,7 @@ import {Link} from 'react-router-dom';
 import PokemonCard from './PokemonCard';
 import Paginado from './Paginado';
 import SearchBar from './SearchBar';
+import styles from './Home.module.css';
 
 export default function Home (){
 	const dispatch = useDispatch();
@@ -103,6 +104,7 @@ export default function Home (){
 		paginado={paginado}
 	/>
 	<SearchBar />
+	<div className = {styles.cards}>
 	{
 		currentPokemons && currentPokemons.map((pok) => {
 			const id = pok.id;
@@ -115,6 +117,7 @@ export default function Home (){
 			);		
 		})
 	}
+	</div>
 	</div>
 </div>	
 		)

@@ -33,30 +33,32 @@ function rootReducer (state=initialState, action) {
 			}
 		case 'FILTER_ORIG_CREA':
 			const pokemonsAll = state.allPokemons;
+
 			let pokemonsFilter=[];
 			if (action.payload === 'all') return pokemonsAll;
-			if (action.payload === 'crea') {
-				pokemonsFilter = pokemonsAll?.filter(pok => pok.createdAt !== undefined)	
-			} else {
-			   	pokemonsFilter = pokemonsAll?.filter(pok => !pok.createdAt)		
-			};
-			// if (action.payload === 'orig') {
-			// 	pokemonsFilter = pokemonsAll?.filter(pok => typeof pok.id === 'number')	
+			// if (action.payload === 'crea') {
+			// 	pokemonsFilter = pokemonsAll?.filter(pok => pok.createdAt !== undefined)	
 			// } else {
-			//    	pokemonsFilter = pokemonsAll?.filter(pok => typeof pok.id !== 'number')		
+			//    	pokemonsFilter = pokemonsAll?.filter(pok => !pok.createdAt)		
 			// };
+			if (action.payload === 'orig') {
+				pokemonsFilter = pokemonsAll?.filter(pok => typeof pok.id === 'number')	
+			} else {
+			   	pokemonsFilter = pokemonsAll?.filter(pok => typeof pok.id !== 'number')		
+			};
 			return {
 				...state,
 				pokemons: pokemonsFilter 
 			}
 		case 'ORDER_BY_NAME':
+			let all = state.allPokemons;
 			let sortedArr = action.payload === 'ascName'?
-				state.allPokemons.sort(function(a,b){
+				all.sort(function(a,b){
 					if (a.name > b.name) return 1;
 					if (b.name > a.name) return -1;
 					return 0;
 				}) :
-				state.allPokemons.sort(function(a,b) {
+				all.sort(function(a,b) {
 					if (a.name > b.name) return -1;
 					if (b.name > a.name) return 1;
 					return 0;

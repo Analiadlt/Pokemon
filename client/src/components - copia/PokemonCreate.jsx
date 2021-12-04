@@ -38,7 +38,6 @@ export default function PokemonCreate(){
 			...input,
 			[e.target.name]: e.target.value
 		}));
-		console.log('inputt', input)
 	}
 
 	function handleSelect(e){
@@ -50,6 +49,7 @@ export default function PokemonCreate(){
 
 	function handleSubmit(e){
 		e.preventDefault();
+
 		dispatch(postPokemons(input));
 		alert('Pokemon created!');
 		setInput({
@@ -114,20 +114,19 @@ function handleDelete(el){
 				</div>
 				<label>Types:</label>
 				<select onChange={(e)=> handleSelect(e)}>
-					{types.map((typ) => (
+					{ types.map((typ) => (
 						<option value={typ.name}>{typ.name}</option>
 						))}
 				</select>
-				<ul>{input.types.map(t => t + " -")}</ul>
-				<button type='submit'>Create Pokemon</button>
-			</form>
+				
 			{input.types.map(el=>
 				<div>
 				<p>{el}</p>
 				<button onClick={()=>handleDelete(el)}>x</button>
 				</div>)
-
 			}
+			<button type='submit'>Create Pokemon</button>
+			</form>
 		</div>
 	)
 }
