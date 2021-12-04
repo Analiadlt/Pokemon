@@ -4,6 +4,7 @@ import { useDispatch, useSelector} from 'react-redux';
 import {getPokemonDetail} from '../actions/index';
 import {useEffect} from 'react';
 import {useParams} from 'react-router-dom';
+import styles from './PokemonDetail.module.css';
 
 export default function PokemonDetail() {
 	let {id} = useParams();
@@ -16,7 +17,7 @@ export default function PokemonDetail() {
 	const myPokemon = useSelector ((state)=> state.detail);
 
 	return (
-		<div>
+		<div className={styles.myPokemon}>
 		{
 			myPokemon ?
 			<div>
@@ -28,7 +29,7 @@ export default function PokemonDetail() {
 			: <p>Loading...</p>	
 		}
 		<Link to= '/home'>
-			<button>Come back</button>
+			<button className={styles.button}>Come back</button>
 		</Link>
 		</div>
 		)

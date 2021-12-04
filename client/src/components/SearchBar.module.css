@@ -28,6 +28,8 @@
 }
 
 .searchBar > button:hover {
-	color:  white;
-	background-color: red;
+	color:  #3972B8;
+	background-color: #f1ce3a;
+	border-color: #3972B8;
+   cursor: pointer;
 }

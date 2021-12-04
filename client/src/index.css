@@ -1,4 +1,7 @@
-body {
+@border: #3972B8;
+
+
+ body {
   margin: 0;
   font-family: "Raleway", sans-serif;
   -webkit-font-smoothing: antialiased;

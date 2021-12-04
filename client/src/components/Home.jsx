@@ -54,23 +54,31 @@ export default function Home (){
 
 	return (
 		<div>
-			<Link to = '/pokemon'>New Pokemon Creation</Link>
-			<h1>Pokemons's World</h1>
-			<button onClick={e=>{return handleClick(e)}}>
+			<div>
+				<Link to = '/pokemon'>
+				<button className ={styles.button}>New Pokemon Create</button>
+				</Link>
+			</div>
+			<h1 className={styles.h1}>Pokemons's World</h1>
+			<button className ={styles.button} onClick={e=>{return handleClick(e)}}>
 				Reload Pokemons
 			</button>
 		<div>
-			<select onChange={e=> handleOnSort(e)}>
-				<option value="without">Without Order</option>
-				<option value="ascName">Ascending by Name</option>
-				<option value="descName">Descending by Name</option>
+		<div>
+			<select className={styles.select} onChange={e=> handleOnSort(e)}>
+				<option value="without">Order By Name</option>
+				<option value="ascName">Ascending</option>
+				<option value="descName">Descending</option>
 			</select>
-			<select>
-				<option value="ascAt">Ascending by Attack</option>
-				<option value="descAt">Descending  by Attack</option>
+			<select className={styles.select}>
+				<option value="without">Order By Attack</option>
+				<option value="ascAt">Ascending</option>
+				<option value="descAt">Descending</option>
 			</select>
-			<select name = "types" onChange={e=> handleFilterType(e)}> 
-				<option value="All">All</option>
+		</div>
+		<div>
+			<select className={styles.select} name = "types" onChange={e=> handleFilterType(e)}> 
+				<option value="All">All Types</option>
 				<option value="Bug">Bug</option>
 				<option value="Dark">Dark</option>
 				<option value="Dragon">Dragon</option>
@@ -92,12 +100,12 @@ export default function Home (){
 				<option value="Unknow">Unknow</option>		
 				<option value="Water">Water</option>			
 			</select>
-			<select onChange={e=> handleOrigCrea(e)}>
-				<option value="all">All</option>
+			<select className={styles.select} onChange={e=> handleOrigCrea(e)}>
+				<option value="all">All Pokemons</option>
 				<option value="orig">Original</option>
 				<option value="crea">Created</option>
 			</select>
-
+		</div>
 	<Paginado
 		pokemonsByPage = {pokemonsByPage}
 		cantPokemons={allPokemons?.length}

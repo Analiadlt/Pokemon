@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {Link, useNavigate  }  from 'react-router-dom';
 import {postPokemons, getTypes} from '../actions/index';
 import { useDispatch, useSelector} from 'react-redux';
+import styles from './PokemonCreate.module.css';
 
 function validate (input){
 	let errors={};
@@ -79,18 +80,17 @@ function handleDelete(el){
 	}, [dispatch]);
 
 	return (
-		<div>
-			<Link to='/home'><button>Come back</button></Link>
-			<h1>New Pokemon Creation</h1>
-			<form onSubmit={(e)=>handleSubmit(e)}>
-				<div>
+		<div >
+			<h1 className={styles.h1}>New Pokemon Creation</h1>
+			<form className={styles.newPokemon} onSubmit={(e)=>handleSubmit(e)}>
+				<div className={styles.name}>
 					<label>Name:</label>
 					<input type='text' value= {input.name} name='name' onChange={(e)=> handleChange(e)} />
 					{errors.name&& (
 						<p>{errors.name}</p>
 						)}
 				</div>
-				<div>
+				<div className={styles.heightWeight}>
 					<label>Height:</label>
 					<input type='number' value= {input.height} name='height' onChange={(e)=> handleChange(e)}/>
 
@@ -98,7 +98,7 @@ function handleDelete(el){
 					<input type='number' value= {input.weight} name='weight' onChange={(e)=> handleChange(e)} />
 				</div>
 				
-				<div>
+				<div className={styles.stats}>
 					<label>Life:</label>
 					<input type='number' value= {input.life} name='life' onChange={(e)=> handleChange(e)}/>
 					<label>Attack:</label>
@@ -112,6 +112,7 @@ function handleDelete(el){
 					<label>Image:</label>
 					<input type='text' value= {input.img} name='img' onChange={(e)=> handleChange(e)}/>
 				</div>
+			<div className={styles.pokTypes}>	
 				<label>Types:</label>
 				<select onChange={(e)=> handleSelect(e)}>
 					{ types.map((typ) => (
@@ -119,14 +120,17 @@ function handleDelete(el){
 						))}
 				</select>
 				
-			{input.types.map(el=>
-				<div>
-				<p>{el}</p>
-				<button onClick={()=>handleDelete(el)}>x</button>
-				</div>)
-			}
-			<button type='submit'>Create Pokemon</button>
+				{input.types.map(el=>
+					<div>
+					<p>{el}</p>
+					<button onClick={()=>handleDelete(el)}>x</button>
+					</div>)
+				}
+			</div>
+
+			<button className={styles.button} type='submit'>Create Pokemon</button>
 			</form>
+		<Link to='/home'><button className={styles.button}>Come back</button></Link>
 		</div>
 	)
 }

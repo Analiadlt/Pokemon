@@ -1,20 +1,21 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import styles from './LandingPage.module.css';
+import landing from '../images/family_landing.png'; 
 
-/*import clases from './Landing.module.css'
-import pokemon from '../../Imagenes/Logo.png'
-import family from '../../Imagenes/FamilyPokes.png'*/ 
  
 
  export default function LandingPage() {
+    
      return (
-        <div>
+        <div className={styles.gral}>
             <div>
-                <h1>Welcome</h1>
+                <h1 className={styles.h1}>Welcome</h1>
             </div>
+            <img src={landing} alt="Pokemon" />
             <div>
                 <Link to='/home'>
-                    <button>Enter</button>
+                    <button className={styles.enter}>Enter</button>
                 </Link>
             </div>
         </div>
