@@ -6,28 +6,29 @@ import styles from './SearchBar.module.css';
 
 export default function SearchBar(){
 	const dispatch = useDispatch();
-	const [name, setName] = useState('');
+	const [pokeName, setPokeName] = useState('');
 
 
 function handleInputChange(e) {
 	e.preventDefault();
-	setName(e.target.value);
+	setPokeName(e.target.value);
 }
 
 function handleSubmit (e) {
 	e.preventDefault();
-	dispatch(getPokemonByName(name));
-	setName('');
+	dispatch(getPokemonByName(pokeName.trim()));
+	setPokeName('');
 }
 
 return (
-	<div className={styles.searchBar}>
+	<form className={styles.searchBar}>
 		<input
 		type = 'text'
 		placeholder= "Search for..."
 		onChange= {(e) => handleInputChange(e)}
-		/>
+		></input>
+
 		<button type='submit' onClick={(e) => handleSubmit(e)}>Search for</button>
-	</div>
+	</form>
 	)
 }

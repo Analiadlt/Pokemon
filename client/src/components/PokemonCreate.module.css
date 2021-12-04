@@ -1,3 +1,7 @@
+.createPokemon{
+
+}
+
 .newPokemon{
 	display: grid;
 	flex-direction: column;
@@ -5,29 +9,72 @@
   	grid-template-rows: 1fr 2fr 1fr;
 }
 
-.heightWeight{
-
+.heightWeight > input{
+	width:  40%;
+	padding:  0.5rem 4rem 0.25rem 0.25rem;
+	box-sizing: border-box; /*width+padding*/
+	border-style:  solid;
+	border-width: 2px;
+	border-color: black;
+	border-radius: 0.5rem;
+	font-size:  1.5rem;
 }
 
-.stats{
-
+.pokTypes{
+	width:  40%;
+	padding:  0.5rem 4rem 0.25rem 0.25rem;
+	box-sizing: border-box; /*width+padding*/
+	border-style:  solid;
+	border-width: 2px;
+	border-color: black;
+	border-radius: 0.5rem;
+	font-size:  1.5rem;
 }
 
 
+.stats > input {
+	width:  40%;
+	padding:  0.5rem 4rem 0.25rem 0.25rem;
+	box-sizing: border-box; /*width+padding*/
+	border-style:  solid;
+	border-width: 2px;
+	border-color: black;
+	border-radius: 0.5rem;
+	font-size:  1.5rem;
+}
 
 .h1 {
-	grid-column:  1 / span 2;
+	grid-column: 2 / span -1;
 	font-weight: 700;
 	font-size: 1.5rem;
+	font-weight: bold;
 }
 
-.name{
+p{
+	font-weight: bold;
+}
+
+label{
+	font-weight: bold;
+}
+
+.name > input{
 	grid-column:  1 / span 2;
+	width:  40%;
+	padding:  0.5rem 4rem 0.25rem 0.25rem;
+	box-sizing: border-box; /*width+padding*/
+	border-style:  solid;
+	border-width: 2px;
+	border-color: black;
+	border-radius: 0.5rem;
+	font-size:  1.5rem;
+	font-weight: bold;
 }
 
 .pokTypes.typs {
 	font-weight: 700;
-	font-size:  1rem;
+	font-size:  0.25rem;
+	font-weight: bold;
 }
 
 .button {
@@ -48,4 +95,15 @@
 	background-color: #f1ce3a;
 	border-color: #3972B8;
    cursor: pointer;
+}
+
+.image > input {
+	width:  40%;
+	padding:  0.5rem 4rem 0.25rem 0.25rem;
+	box-sizing: border-box; /*width+padding*/
+	border-style:  solid;
+	border-width: 2px;
+	border-color: black;
+	border-radius: 0.5rem;
+	font-size:  1.5rem;
 }

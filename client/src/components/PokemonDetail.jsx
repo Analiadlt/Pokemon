@@ -15,22 +15,32 @@ export default function PokemonDetail() {
 	}, [dispatch, id])
 
 	const myPokemon = useSelector ((state)=> state.detail);
-
+	
 	return (
 		<div className={styles.myPokemon}>
 		{
 			myPokemon ?
 			<div>
-				<h1>{myPokemon.name}</h1>
-				<img src={myPokemon.img} alt='' width="100px" height="125px"/>
-				<h2>Estadísticas</h2>
-				<h5>Types: {!myPokemon.createAt? myPokemon.types + ' ' : myPokemon.types.map(el=>el.name + (' '))}</h5>
+				<h2>{myPokemon.name}</h2>
+				<img src={myPokemon.img} alt='' width="200px" height="250px"/>
+				<p>Height: {myPokemon.height} - Weight: {myPokemon.weight}</p>	
+			
+				<h2>Stats</h2>
+				<p>Life: </p>
+				<p>Attack: </p>
+				<p>Defense: </p>
+				<p>Speed: </p>
+			
+			<h5>Types: {!myPokemon.createAt? 
+							myPokemon.types + ' ' 
+							: myPokemon.types.map(el=>el.name + (' '))
+						}</h5>
 			</div> 
 			: <p>Loading...</p>	
 		}
-		<Link to= '/home'>
-			<button className={styles.button}>Come back</button>
-		</Link>
+			<Link to= '/home'>
+				<button className={styles.button}>Come back</button>
+			</Link>
 		</div>
 		)
 }

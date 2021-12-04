@@ -50,19 +50,19 @@ export function orderByName(payload) {
 	}
 }
 
-export function getPokemonByName(name) {
-	return async function(dispatch){
+
+export function getPokemonByName(payload) {
+	return async function (dispatch) {
 		try {
-			var json= await axios.get("http://localhost:3001/pokemons?name="+name);
-				return dispatch({
-					type: 'GET_POKEMON_BY_NAME',
-					payload: json.data 
-				})
-		} catch (error) {
-				console.log(error)
+			const pokemon = await axios.get("http://localhost:3001/pokemons?name=" + payload);
+			return dispatch({
+				type: 'GET_POKEMON_BY_NAME',
+				payload: pokemon.data,
+			})
+		} catch (err) {
+			console.log(err);
 		}
-		
-	}
+	};
 }
 
 export function getPokemonDetail(id) {

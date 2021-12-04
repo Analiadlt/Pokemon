@@ -90,9 +90,9 @@ try{
         where: { name : types }
       })
      
+
       typeDb && pokemonCreated.addType(typeDb);
-
-
+      
       res.send('Pokemon created successfully.')
     
 } catch (e) {
