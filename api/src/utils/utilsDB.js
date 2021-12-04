@@ -31,7 +31,6 @@ const getDbPokemonByName = async(name) => {
       }, 
     },
   })
-    console.log(' findPokemon ', findPokemon)
     return findPokemon;
 
 
