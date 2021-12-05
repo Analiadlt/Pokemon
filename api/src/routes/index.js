@@ -3,6 +3,7 @@ const { Router } = require('express');
 const {Pokemon, Type } = require('../db');
 const router = Router();
 const { getAllPokemons, getApiPokemonById, getPokemonByName} = require('../utils/utilsAPI');
+const { getDbPokemonById } = require('../utils/utilsDB');
 
 // Configurar los routers
 // Ejemplo: router.use('/auth', authRouter);
@@ -11,23 +12,14 @@ const axios = require('axios');
 
 router.get('/pokemons/:id', async (req, res)=> {
   const id = req.params.id;
-  let pokemonApiInfo=null;
-  let pokemonDbInfo=null;
+  let pokemonInfo=null;
   try {
-      if (id.length < 5) {pokemonApiInfo = await getApiPokemonById(id);}
-        else {
-          pokemonDbInfo = await Pokemon.findOne(
-            { where: { id },
-               include: { model: Type, 
-                  attributes: ['name'],
-                  through: {
-                      attributes: [],
-                    }, 
-                  },
-              })
-        };
-      if (pokemonApiInfo) res.status(200).json(pokemonApiInfo);
-      if (pokemonDbInfo) res.status(200).json(pokemonDbInfo);
+    if (id.length < 5) {
+      pokemonInfo = await getApiPokemonById(id);
+    } else {
+      pokemonInfo = await getDbPokemonById(id);
+      };
+    if (pokemonInfo) res.status(200).json(pokemonInfo);
   } catch {
     res.status(404).send('Pokemon not found.');
   }

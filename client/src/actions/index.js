@@ -69,14 +69,14 @@ export function getPokemonDetail(id) {
 	return async function(dispatch){
 		try {
 			var json= await axios.get("http://localhost:3001/pokemons/"+id);
+			console.log('pokemon detail ', json.data)
 				return dispatch({
 					type: 'GET_POKEMON_DETAIL',
 					payload: json.data
 				})
 		} catch (error) {
 				console.log(error)
-		}
-		
+		}	
 	}
 }
 

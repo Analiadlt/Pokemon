@@ -37,12 +37,10 @@ const getApiPokemonById = async (id) => {
     id: data.id,
     height: data.height,
     weight: data.weight,
-    stats: data.stats.map(sta => {
-        return {
-        name: sta.stat.name, 
-        base: sta.base_stat,
-      }      
-    })
+    life: data.stats[0].base_stat,
+    attack: data.stats[1].base_stat,
+    defense: data.stats[2].base_stat,
+    speed: data.stats[5].base_stat,
   }
   return apiInfo;
 }
@@ -58,17 +56,21 @@ const getApiPokemonByName = async (name) => {
           id: data.id,
           height: data.height,
           weight: data.weight,
-          stats: data.stats.map(sta => {
-              return {
-              name: sta.stat.name, 
-              base: sta.base_stat,
-            }      
-          })
+          life: data.stats[0].base_stat,
+          attack: data.stats[1].base_stat,
+          defense: data.stats[2].base_stat,
+          speed: data.stats[5].base_stat,
+          // stats: data.stats.map(sta => {
+          //     return {
+          //     name: sta.stat.name, 
+          //     base: sta.base_stat,
+          //   }      
+          // })
         }
         return apiInfo;
   
   } catch (e) {
-       return '';
+       return null;
   }  
 }
 
@@ -91,3 +93,4 @@ module.exports = {
   getApiPokemonById,
   getPokemonByName
 }
+

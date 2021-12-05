@@ -32,22 +32,29 @@ const getDbPokemonByName = async(name) => {
     },
   })
     return findPokemon;
+  };
 
 
-  // let pokemonsDB = dbInfo.map(poke=>{
- //                return ({
- //                    id: poke.id,
- //                    name:poke.name,
- //                    img:poke.img,
- //                    types: mapTypes(poke.types)
- //                })
- //            })
 
- //  return dbInfo;
-}
+const getDbPokemonById = async(id) => {
+
+  const findPokemon = await Pokemon.findAll({
+    where: { id },
+    include: {
+      model: Type,
+      attributes: ['name'],
+      through: {
+        attributes: [],
+      }, 
+    },
+  })
+    return findPokemon[0];
+  };
+
 
 
 module.exports = {
   getDbInfo,
-  getDbPokemonByName
+  getDbPokemonByName,
+  getDbPokemonById,
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 import {useState, useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {getPokemons, filterPokemonsByTypes, filterOrigCrea, orderByName} from '../actions';
+import {getPokemons, filterPokemonsByTypes, filterOrigCrea, orderByName, getTypes} from '../actions';
 import {Link} from 'react-router-dom';
 import PokemonCard from './PokemonCard';
 import Paginado from './Paginado';
@@ -27,6 +27,7 @@ export default function Home (){
 
 	useEffect(() => {
 		dispatch(getPokemons()); // reemplaza mapDispatchToProps y el mapStateToProps
+		dispatch(getTypes());
 	}, [dispatch]) //el [] es para que no sea un bucle infinito
 
 	const [order, setOrder] = useState('');

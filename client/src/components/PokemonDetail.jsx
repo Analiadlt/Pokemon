@@ -25,10 +25,12 @@ export default function PokemonDetail() {
 				<img src={myPokemon.img} alt='' width="200px" height="250px"/>
 				<p>Height: {myPokemon.height} - Weight: {myPokemon.weight}</p>	
 				<h2>Stats</h2>
-			<h4>{!myPokemon.createAt? 
-				myPokemon.stats.map(el=> {return <p>{el.name}: {el.base}</p>})  
-				: myPokemon.stats.map(el=>el.name + (' '))
-			}</h4>
+			<h4>
+				<p>Life: {myPokemon.life} </p>
+				<p>Attack: {myPokemon.attack} </p>
+				<p>Defense: {myPokemon.defense} </p> 
+				<p>Speed: {myPokemon.speed}</p>
+			</h4>
 
 			<h4>Types: {!myPokemon.createAt? 
 							myPokemon.types + '  ' 
