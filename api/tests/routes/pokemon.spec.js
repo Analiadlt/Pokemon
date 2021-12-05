@@ -16,9 +16,40 @@ describe('Pokemon routes', () => {
   }));
   beforeEach(() => Pokemon.sync({ force: true })
     .then(() => Pokemon.create(pokemon)));
-  describe('GET /pokemons', () => {
+  // describe('GET /pokemons', () => {
+  //   it('should get 200', () =>
+  //     agent.get('/pokemons').expect(200)
+  //   );
+  // });
+ describe('GET /types', () => {
     it('should get 200', () =>
-      agent.get('/pokemons').expect(200)
+      agent.get('/types').expect(200)
     );
   });
+ 
+  describe('GET /pokemons/:id', function() {
+    it('GET responde con un array vacío si el pokemon no existe', function() {
+      agent
+        .get('/pokemons/2300')
+        .expect(200)
+        .expect('Content-Type', /json/)
+        .expect(function(res) {
+          expect(res.body).toEqual([]);
+        });
+    });
+});
+
+describe('GET /pokemons?name', function() {
+  it('GET responde con un array de todos los pokemons con ese nombre', function() {
+      agent
+        .get('/pokemons/pikachu')
+        .expect(200)
+        .expect('Content-Type', /json/)
+        .expect(function(res) {
+          expect(res.body).toEqual([{name: 'pikachu'},
+           {name: 'pikachu'}]
+          );
+        });
+    });
+});
 });
