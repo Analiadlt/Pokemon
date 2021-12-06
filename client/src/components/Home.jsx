@@ -1,7 +1,7 @@
 import React from 'react';
 import {useState, useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {getPokemons, filterPokemonsByTypes, filterOrigCrea, orderByName, getTypes} from '../actions';
+import {getPokemons, filterPokemonsByTypes, filterOrigCrea, orderByName, orderByAttack} from '../actions';
 import {Link} from 'react-router-dom';
 import PokemonCard from './PokemonCard';
 import Paginado from './Paginado';
@@ -12,13 +12,11 @@ export default function Home (){
 	const dispatch = useDispatch();
 	//trae del store el state con todos los pokemons o los filtrados 'pokemons'
 	const allPokemons = useSelector((state) => state.pokemons);
-
-//estados y variables para paginado
+	//estados y variables para paginado
 	const [currentPage, setCurrentPage] = useState(1);
-	const pokemonsByPage = 12;
-	var indexOfLastPokemon = currentPage * pokemonsByPage;
+	const [pokemonsByPage, setPokemonsByPage] = useState(12);
+	const indexOfLastPokemon = currentPage * pokemonsByPage;
 	const indexOfFirstPokemon = indexOfLastPokemon - pokemonsByPage;
-
 	const currentPokemons = allPokemons?.slice(indexOfFirstPokemon, indexOfLastPokemon);
 
 	const paginado = (pageNumber) => {
@@ -27,8 +25,10 @@ export default function Home (){
 
 	useEffect(() => {
 		dispatch(getPokemons()); // reemplaza mapDispatchToProps y el mapStateToProps
-		dispatch(getTypes());
+	//	dispatch(getTypes());
 	}, [dispatch]) //el [] es para que no sea un bucle infinito
+
+
 
 	const [order, setOrder] = useState('');
 
@@ -46,11 +46,14 @@ export default function Home (){
 	}
 
 	function handleOnSort(e){
-		e.preventDefault();
-		if (e.target.value !== 'without') dispatch(orderByName(e.target.value));
+	 e.preventDefault();
+	 if (e.target.value !== 'without') {
+		if (e.target.value === 'ascName' || e.target.value === 'descName') dispatch(orderByName(e.target.value));
+		if (e.target.value === 'ascAt' || e.target.value === 'descAt') dispatch(orderByAttack(e.target.value));
+		}
 		//esto hace que se renderice la home cdo selecciono 'asc' o 'desc'
 		setCurrentPage(1); 
-		setOrder(`Ordered ${e.target.value}`)
+		setOrder(e.target.value)
 	}
 
 	return (
@@ -71,7 +74,7 @@ export default function Home (){
 				<option value="ascName">Ascending</option>
 				<option value="descName">Descending</option>
 			</select>
-			<select className={styles.select}>
+			<select className={styles.select}  onChange={e=> handleOnSort(e)}>
 				<option value="without">Order By Attack</option>
 				<option value="ascAt">Ascending</option>
 				<option value="descAt">Descending</option>
@@ -102,7 +105,7 @@ export default function Home (){
 				<option value="Water">Water</option>			
 			</select>
 			<select className={styles.select} onChange={e=> handleOrigCrea(e)}>
-				<option value="all">All Pokemons</option>
+				<option value="All">All Pokemons</option>
 				<option value="orig">Original</option>
 				<option value="crea">Created</option>
 			</select>

@@ -32,33 +32,31 @@ function rootReducer (state=initialState, action) {
 				pokemons: typesFilter
 			}
 		case 'FILTER_ORIG_CREA':
-			const pokemonsAll = state.allPokemons;
-
-			let pokemonsFilter=[];
-			if (action.payload === 'all') return pokemonsAll;
-			// if (action.payload === 'crea') {
-			// 	pokemonsFilter = pokemonsAll?.filter(pok => pok.createdAt !== undefined)	
-			// } else {
-			//    	pokemonsFilter = pokemonsAll?.filter(pok => !pok.createdAt)		
-			// };
-			if (action.payload === 'orig') {
-				pokemonsFilter = pokemonsAll?.filter(pok => typeof pok.id === 'number')	
+			let pokemonsFilter='';
+			if (action.payload === 'All') pokemonsFilter = state.allPokemons;
+			if (action.payload === 'crea') {
+				pokemonsFilter = state.allPokemons?.filter(pok => pok.createdAt)	
 			} else {
-			   	pokemonsFilter = pokemonsAll?.filter(pok => typeof pok.id !== 'number')		
+			   	pokemonsFilter = state.allPokemons?.filter(pok => !pok.createdAt)		
 			};
+			// if (action.payload === 'orig') {
+			// 	pokemonsFilter = pokemonsAll?.filter(pok => typeof pok.id === 'number')	
+			// } else {
+			//    	pokemonsFilter = pokemonsAll?.filter(pok => typeof pok.id === 'string')		
+			// };
 			return {
 				...state,
 				pokemons: pokemonsFilter 
+				//pokemons: action.payload === 'All'
 			}
 		case 'ORDER_BY_NAME':
-			let all = state.allPokemons;
 			let sortedArr = action.payload === 'ascName'?
-				all.sort(function(a,b){
+				state.allPokemons.sort(function(a,b){
 					if (a.name > b.name) return 1;
 					if (b.name > a.name) return -1;
 					return 0;
 				}) :
-				all.sort(function(a,b) {
+				state.allPokemons.sort(function(a,b) {
 					if (a.name > b.name) return -1;
 					if (b.name > a.name) return 1;
 					return 0;
@@ -68,6 +66,23 @@ function rootReducer (state=initialState, action) {
 					...state,
 					pokemons: sortedArr
 				}	
+		case 'ORDER_BY_ATTACK':
+			let arrSorted = action.payload === 'ascAt'?
+				state.allPokemons.sort(function(a,b){
+					if (a.attack > b.attack) return 1;
+					if (b.attack > a.attack) return -1;
+					return 0;
+				}) :
+				state.allPokemons.sort(function(a,b) {
+					if (a.attack > b.attack) return -1;
+					if (b.attack > a.attack) return 1;
+					return 0;
+				})
+
+				return {
+					...state,
+					pokemons: arrSorted
+				}		
 		case 'GET_TYPES':
 			return {
 				...state,

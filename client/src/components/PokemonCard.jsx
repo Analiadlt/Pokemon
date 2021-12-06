@@ -2,9 +2,6 @@ import React from 'react';
 import styles from './PokemonCard.module.css';
 
 export default function Card({name, image, types, id}) {
-	const foo = types.map(function(typ) {
-   			return (<p key={typ}>{typ}</p>)
-	 		})
 
 	return (
 		<div className = {styles.pokemoncard}>
@@ -12,9 +9,14 @@ export default function Card({name, image, types, id}) {
 			<img src={image} alt="img not found" width="100px" height="125px" />
 			<div className={styles.pokTypes}>
 				<label>Types</label>
-				<div id='typs'>{foo}</div>			
+				<h4>{ (typeof id === 'number')? 
+							types?.reduce((e1,e2) => e1 + '-' + e2)
+							: types?.map(el=>el.name + '- ')
+						}</h4>
 			</div>	
 		</div>
 		)
 }
+
+
 

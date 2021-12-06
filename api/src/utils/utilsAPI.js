@@ -21,10 +21,11 @@ const getApiInfo = async () => {
 }
 
 
-const getAllPokemons = async() => {
+const getAllPokemons = async(order) => {
   const apiInfo = await getApiInfo();
   const dbInfo = await getDbInfo();
-  return apiInfo.concat(dbInfo);
+  let result = apiInfo.concat(dbInfo);
+  return result;
 } 
 
 const getApiPokemonById = async (id) => {
@@ -42,6 +43,7 @@ const getApiPokemonById = async (id) => {
     defense: data.stats[2].base_stat,
     speed: data.stats[5].base_stat,
   }
+  
   return apiInfo;
 }
 
@@ -67,7 +69,7 @@ const getApiPokemonByName = async (name) => {
           //   }      
           // })
         }
-        return apiInfo;
+        return apiInfo; //trae un objeto
   
   } catch (e) {
        return null;

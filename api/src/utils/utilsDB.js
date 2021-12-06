@@ -31,7 +31,7 @@ const getDbPokemonByName = async(name) => {
       }, 
     },
   })
-    return findPokemon;
+    return findPokemon; //trae un array
   };
 
 
@@ -48,7 +48,7 @@ const getDbPokemonById = async(id) => {
       }, 
     },
   })
-    return findPokemon[0];
+    return findPokemon[0]; //trae un objeto
   };
 
 

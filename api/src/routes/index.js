@@ -57,15 +57,12 @@ router.get ('/types', async (req, res)=>{
 })
 
 
-// retorna los pokemons ordenados por attack
-router.get ('/pokemons/?attack', async (req, res)=>{
+// retorna los pokemons ordenados por attack/name
+router.get ('/pokemons/?order', async (req, res)=>{
   
-  let attackOrder = req.query.attack;
- 
-  if (attackOrder==='ascAt') {
-        let allPokemons = await pokemonsOrderedByAttack();
-        res.status(200).send(allPokemons);
-     }
+  let order = req.query.order;
+  let allPokemons = await getAllPokemons(order);
+  res.status(200).send(allPokemons);
  
 })
 

@@ -32,9 +32,9 @@ export default function PokemonDetail() {
 				<p>Speed: {myPokemon.speed}</p>
 			</h4>
 
-			<h4>Types: {!myPokemon.createAt? 
-							myPokemon.types + '  ' 
-							: myPokemon.types.map(el=>el.name + ('  '))
+			<h4>Types: {(id.length<5)? 
+							myPokemon.types?.reduce((e1,e2) => e1 + '-' + e2)
+							: myPokemon.types?.map(el=>el.name + ('-'))
 						}</h4>
 			</div> 
 			: <p>Loading...</p>	
