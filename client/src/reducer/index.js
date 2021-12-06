@@ -39,15 +39,9 @@ function rootReducer (state=initialState, action) {
 			} else {
 			   	pokemonsFilter = state.allPokemons?.filter(pok => !pok.createdAt)		
 			};
-			// if (action.payload === 'orig') {
-			// 	pokemonsFilter = pokemonsAll?.filter(pok => typeof pok.id === 'number')	
-			// } else {
-			//    	pokemonsFilter = pokemonsAll?.filter(pok => typeof pok.id === 'string')		
-			// };
 			return {
 				...state,
 				pokemons: pokemonsFilter 
-				//pokemons: action.payload === 'All'
 			}
 		case 'ORDER_BY_NAME':
 			let sortedArr = action.payload === 'ascName'?

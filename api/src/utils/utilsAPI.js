@@ -15,6 +15,7 @@ const getApiInfo = async () => {
     name: d.data.name,
     img: d.data.sprites.other.home.front_default,
     types: d.data.types.map(typ => typ.type.name),
+    attack: d.data.stats[1].base_stat,
     })
   })
   return infoAllPokemons;
@@ -85,7 +86,7 @@ const getPokemonByName = async (name) => {
       if (apiInfo) return apiInfo;
       if (dbInfo) return dbInfo;
     
-      return [name];
+      return [];
 }
 
 module.exports = {

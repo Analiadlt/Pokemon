@@ -57,15 +57,6 @@ router.get ('/types', async (req, res)=>{
 })
 
 
-// retorna los pokemons ordenados por attack/name
-router.get ('/pokemons/?order', async (req, res)=>{
-  
-  let order = req.query.order;
-  let allPokemons = await getAllPokemons(order);
-  res.status(200).send(allPokemons);
- 
-})
-
 
 router.post('/pokemons', async (req, res)=>{
   const {name, height, weight, types, life, attack, defense, speed} = req.body;

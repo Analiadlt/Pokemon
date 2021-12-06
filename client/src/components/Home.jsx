@@ -10,8 +10,9 @@ import styles from './Home.module.css';
 
 export default function Home (){
 	const dispatch = useDispatch();
-	//trae del store el state con todos los pokemons o los filtrados 'pokemons'
+	
 	const allPokemons = useSelector((state) => state.pokemons);
+	
 	//estados y variables para paginado
 	const [currentPage, setCurrentPage] = useState(1);
 	const [pokemonsByPage, setPokemonsByPage] = useState(12);
@@ -48,9 +49,12 @@ export default function Home (){
 	function handleOnSort(e){
 	 e.preventDefault();
 	 if (e.target.value !== 'without') {
-		if (e.target.value === 'ascName' || e.target.value === 'descName') dispatch(orderByName(e.target.value));
-		if (e.target.value === 'ascAt' || e.target.value === 'descAt') dispatch(orderByAttack(e.target.value));
-		}
+		if (e.target.value === 'ascName' || e.target.value === 'descName') {
+			dispatch(orderByName(e.target.value));
+		} else {
+			if (e.target.value === 'ascAt' || e.target.value === 'descAt') dispatch(orderByAttack(e.target.value));
+			}
+	}
 		//esto hace que se renderice la home cdo selecciono 'asc' o 'desc'
 		setCurrentPage(1); 
 		setOrder(e.target.value)
