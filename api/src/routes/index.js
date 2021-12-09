@@ -59,10 +59,10 @@ router.get ('/types', async (req, res)=>{
 
 
 router.post('/pokemons', async (req, res)=>{
-  const {name, height, weight, types, life, attack, defense, speed} = req.body;
+  const {name, height, weight, types, life, attack, defense, speed, img} = req.body;
 try{
     let pokemonCreated = await Pokemon.create ({
-        name, height, weight, life, attack, defense, speed
+        name, height, weight, life, attack, defense, speed, img
       })
 
     // busca los Tipos cargados

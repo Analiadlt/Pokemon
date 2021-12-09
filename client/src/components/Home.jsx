@@ -4,7 +4,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {getPokemons, filterPokemonsByTypes, filterOrigCrea, orderByName, orderByAttack} from '../actions';
 import {Link} from 'react-router-dom';
 import PokemonCard from './PokemonCard';
-import Paginado from './Paginado';
+import Paged from './Paged';
 import SearchBar from './SearchBar';
 import styles from './Home.module.css';
 
@@ -20,7 +20,7 @@ export default function Home (){
 	const indexOfFirstPokemon = indexOfLastPokemon - pokemonsByPage;
 	const currentPokemons = allPokemons?.slice(indexOfFirstPokemon, indexOfLastPokemon);
 
-	const paginado = (pageNumber) => {
+	const paged = (pageNumber) => {
 		setCurrentPage(pageNumber)
 	}
 
@@ -62,11 +62,11 @@ export default function Home (){
 
 	return (
 		<div>
-			<div>
+			<>
 				<Link to = '/pokemon'>
 				<button className ={styles.button}>New Pokemon Create</button>
 				</Link>
-			</div>
+			</>
 			<h1 className={styles.h1}>Pokemons's World</h1>
 			<button className ={styles.button} onClick={e=>{return handleClick(e)}}>
 				Reload Pokemons
@@ -114,10 +114,10 @@ export default function Home (){
 				<option value="crea">Created</option>
 			</select>
 		</div>
-	<Paginado
+	<Paged
 		pokemonsByPage = {pokemonsByPage}
 		cantPokemons={allPokemons?.length}
-		paginado={paginado}
+		paged={paged}
 	/>
 	<SearchBar />
 	<div className = {styles.cards}>

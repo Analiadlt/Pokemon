@@ -1,7 +1,7 @@
 import React from 'react';
-import styles from './Paginado.module.css';
+import styles from './Paged.module.css';
 
-export default function Paginado ({pokemonsByPage, cantPokemons, paginado}) {
+export default function Paged ({pokemonsByPage, cantPokemons, paged}) {
 	const pageNumbers = [];
 	for (let i=0; i<Math.ceil(cantPokemons/pokemonsByPage); i++) {
 		pageNumbers.push(i+1);
@@ -12,7 +12,7 @@ export default function Paginado ({pokemonsByPage, cantPokemons, paginado}) {
 				{ pageNumbers &&
 					pageNumbers.map(number => (
 						<ul className={styles.number} key={number}>
-							<p onClick={()=> paginado(number)}>{number}</p>
+							<button onClick={()=> paged(number)}>{number}</button>
 						</ul>	
 					))}
 			</ul>

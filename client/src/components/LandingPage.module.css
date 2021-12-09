@@ -13,14 +13,14 @@
 
 .enter {
     background-image: url('');
-    width: 5rem;
+    width: 15rem;
     height: 5rem;
     background-color: #f1ce3a;
     font-weight: 600;
     font-family: 'Play', sans-serif;
     font-size: 1rem;
     color: black;
-    border-radius: 9999px;
+    border-radius: 0.5rem;
     border-color: #3972B8;
     border-width: 0.5rem;
     border-style: solid;

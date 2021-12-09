@@ -1,6 +1,8 @@
 .searchBar {
 	position: relative;
 	width: 15rem;
+	margin: 0 auto;
+    display: inline-block;
 }
 
 .searchBar > input {

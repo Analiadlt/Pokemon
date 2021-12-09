@@ -10,13 +10,6 @@ export function getPokemons() {
 	}
 }
 
-// export function filterPokemosByStatus(payload){
-// 	return {
-// 		type: 'FILTER_BY_STATUS',
-// 		payload
-// 	}
-// }
-
 export function getTypes() {
 	return async function(dispatch){
 		var json= await axios.get("http://localhost:3001/types");

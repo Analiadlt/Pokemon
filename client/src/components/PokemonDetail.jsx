@@ -8,7 +8,8 @@ import styles from './PokemonDetail.module.css';
 
 export default function PokemonDetail() {
 	let {id} = useParams();
-    
+    const default_img = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png';
+
 	const dispatch=useDispatch()
 	useEffect(() => {
 		dispatch(getPokemonDetail(id))
@@ -22,7 +23,7 @@ export default function PokemonDetail() {
 			myPokemon ?
 			<div>
 				<h2>{myPokemon.name}</h2>
-				<img src={myPokemon.img} alt='' width="200px" height="250px"/>
+				<img src={myPokemon.img? myPokemon.img : default_img} alt='' width="200px" height="250px"/>
 				<p>Height: {myPokemon.height} - Weight: {myPokemon.weight}</p>	
 				<h2>Stats</h2>
 			<h4>
