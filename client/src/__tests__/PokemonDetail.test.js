@@ -9,8 +9,12 @@ import thunk from "redux-thunk";
 
 import PokemonDetail from "../components/PokemonDetail";
 import PokemonCard from "../components/PokemonCard";
-//import * as data from "../db.json";
+//import * as data from "../../api/src/db.js";
 import * as actions from "../actions";
+import {useEffect} from 'react';
+import {useParams} from 'react-router-dom';
+import { useDispatch, useSelector} from 'react-redux';
+
 
 configure({ adapter: new Adapter() });
 
@@ -29,14 +33,11 @@ describe("<PokemonDetail />", () => {
   });
   const mockStore = configureStore([thunk]);
 
-  const store = (id) => {
-    let state = {
-      pokemons: data.pokemons.concat(noPokemons),
-      pokemons:
-        id !== 5 ? data.pokemons[id - 1] : data.pokemons.concat(noPokemons),
-    };
-    return mockStore(state);
-  };
+  const dispatch=useDispatch()
+  useEffect(() => {
+    dispatch(getPokemonDetail(id))
+  }, [dispatch, id]);
+
   // Si o si vas a tener que usar functional component! No van a correr ninguno de los tests si no lo haces!
   // También fijate que vas a tener que usar algunos hooks. Tanto de React como de Redux!
   // Los hooks de React si o si los tenes que usar "React.useState", "React.useEffect". El test no los reconoce
@@ -47,7 +48,7 @@ describe("<PokemonDetail />", () => {
   beforeEach(() => {
     useSelectorStub = jest.spyOn(ReactRedux, "useSelector");
     useSelectorFn = (id) =>
-      useSelectorStub.mockReturnValue(store(id).getState().house);
+      useSelectorStub.mockReturnValue(store(id).getState().pokemon);
     useEffect = jest.spyOn(React, "useEffect");
     pokemonDetail = (id) =>
       mount(

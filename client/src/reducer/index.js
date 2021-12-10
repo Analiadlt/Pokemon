@@ -13,10 +13,6 @@ function rootReducer (state=initialState, action) {
 				pokemons: action.payload,
 				allPokemons: action.payload
 			}
-		case 'POST_POKEMONS':
-			return {
-				...state,
-			}
 		case 'GET_POKEMON_BY_NAME':
 			return {
 				...state,
@@ -25,7 +21,7 @@ function rootReducer (state=initialState, action) {
 		case 'FILTER_BY_TYPES':
 			const allPokemons = state.allPokemons;
 			const typesFilter = action.payload ==='All'? allPokemons 
-			: allPokemons?.filter(pok => pok.types.includes(action.payload.toLowerCase())			
+			: allPokemons?.filter(pok => pok.types.includes(action.payload)			
 			);
 			return {
 				...state,

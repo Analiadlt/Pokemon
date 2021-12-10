@@ -12,7 +12,7 @@ export default function Home (){
 	const dispatch = useDispatch();
 	
 	const allPokemons = useSelector((state) => state.pokemons);
-	
+	const types = useSelector((state) => state.types);
 	//estados y variables para paginado
 	const [currentPage, setCurrentPage] = useState(1);
 	const [pokemonsByPage, setPokemonsByPage] = useState(12);
@@ -23,10 +23,10 @@ export default function Home (){
 	const paged = (pageNumber) => {
 		setCurrentPage(pageNumber)
 	}
-
+	
 	useEffect(() => {
 		dispatch(getPokemons()); // reemplaza mapDispatchToProps y el mapStateToProps
-	//	dispatch(getTypes());
+//		dispatch(getTypes());
 	}, [dispatch]) //el [] es para que no sea un bucle infinito
 
 
@@ -52,14 +52,16 @@ export default function Home (){
 		if (e.target.value === 'ascName' || e.target.value === 'descName') {
 			dispatch(orderByName(e.target.value));
 		} else {
-			if (e.target.value === 'ascAt' || e.target.value === 'descAt') dispatch(orderByAttack(e.target.value));
-			}
+			if (e.target.value === 'ascAt' || e.target.value === 'descAt') {
+				dispatch(orderByAttack(e.target.value));
+		}}
 	}
 		//esto hace que se renderice la home cdo selecciono 'asc' o 'desc'
 		setCurrentPage(1); 
 		setOrder(e.target.value)
 	}
 
+	types.sort((a,b) => a.name < b.name ? -1 : +(a.name > b.name));
 	return (
 		<div>
 			<>
@@ -87,27 +89,11 @@ export default function Home (){
 		<div>
 			<select className={styles.select} name = "types" onChange={e=> handleFilterType(e)}> 
 				<option value="All">All Types</option>
-				<option value="Bug">Bug</option>
-				<option value="Dark">Dark</option>
-				<option value="Dragon">Dragon</option>
-				<option value="Electric">Electric</option>
-				<option value="Fairy">Fairy</option>
-				<option value="Figthing">Figthing</option>
-				<option value="Fire">Fire</option>
-				<option value="Flying">Flying</option>
-				<option value="Ghost">Ghost</option>
-				<option value="Grass">Grass</option>
-				<option value="Ground">Ground</option>
-				<option value="Ice">Ice</option>
-				<option value="Normal">Normal</option>
-				<option value="Poison">Poison</option>
-				<option value="Psychic">Psychic</option>
-				<option value="Rock">Rock</option>
-				<option value="Shadow">Shadow</option>
-				<option value="Steel">Steel</option>
-				<option value="Unknow">Unknow</option>		
-				<option value="Water">Water</option>			
+					{ types.map((typ) => (
+							<option value={typ.name}>{typ.name}</option>
+							))}
 			</select>
+			
 			<select className={styles.select} onChange={e=> handleOrigCrea(e)}>
 				<option value="All">All Pokemons</option>
 				<option value="orig">Original</option>

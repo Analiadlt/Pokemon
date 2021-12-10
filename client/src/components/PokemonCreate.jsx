@@ -10,9 +10,15 @@ function validate (input){
 	if (!input.name) {
 		errors.name='Please, insert a Name.'
 	}
-	if (!input.types.length) {
-		errors.types='You must select a Type.'
-	}
+
+	// if (!input.types.length) {
+	// 	errors.types='You must select a Type.'
+	// }
+	// if (input.img) {
+	// 	if(/(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/.test(input.img)) {
+	//       errors.img='Invalid url.';
+	// }}
+
 	return errors;
 }
 
@@ -53,39 +59,39 @@ export default function PokemonCreate(){
 			...input,
 			types: [...input.types, e.target.value]
 		})
-}
+	}
 
-function handleSubmit(e){
-	e.preventDefault();
-	dispatch(postPokemons(input));
-	alert('Pokemon succesfully created!');
-	setInput({
-		name: '',
-		img: '',
-		height: '',
-		weight: '',
-		life: '',
-		attack: '',
-		defense: '',
-		speed: '',
-		types: []
-	})
-	navigate('/home');
-}
+	function handleSubmit(e){
+		e.preventDefault();
+		dispatch(postPokemons(input));
+		alert('Pokemon succesfully created!');
+		setInput({
+			name: '',
+			img: '',
+			height: '',
+			weight: '',
+			life: '',
+			attack: '',
+			defense: '',
+			speed: '',
+			types: []
+		})
+		navigate('/home');
+	}
 
-function handleDelete(el){
-	setInput({
-		...input,
-		types: input.types?.filter(typ=>typ !==el)
-	})
-}
+	function handleDelete(el){
+		setInput({
+			...input,
+			types: input.types?.filter(typ=>typ !==el)
+		})
+	}
 
 	useEffect(() => {
 		dispatch(getTypes());
 	}, [dispatch]);
 
-types.sort((a,b) => a.name < b.name ? -1 : +(a.name > b.name));
-return (
+	types.sort((a,b) => a.name < b.name ? -1 : +(a.name > b.name));
+	return (
 		<div >
 			<Link to='/home'><button className={styles.button}>Come back</button></Link>
 			<h1 className={styles.h1}>New Pokemon Creation</h1>
@@ -97,6 +103,7 @@ return (
 							<option value={typ.name}>{typ.name}</option>
 							))}
 					</select>
+					{errors.types && <p className ={styles.errors}>{errors.types}</p>}
 				</div>
 				<div className={styles.inputDiv}>
 					<label>Name:</label>
