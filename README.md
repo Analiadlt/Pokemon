@@ -16,35 +16,19 @@
 - Aprender y practicar el workflow de GIT.
 - Usar y practicar testing.
 
-## Comenzando
-
- 1. Forkear el repositorio para tener una copia del mismo en sus cuentas
- 2. Clonar el repositorio en sus computadoras para comenzar a trabajar
-
 __IMPORTANTE:__ Es necesario contar minimamente con la última versión estable de Node y NPM. Asegurarse de contar con ella para poder instalar correctamente las dependecias necesarias para correr el proyecto.
-
-Actualmente las versiónes necesarias son:
- * __Node__: 12.18.3 o mayor
- * __NPM__: 6.14.16 o mayor
-
-Para verificar que versión tienen instalada:
-> node -v
->
-> npm -v
 
 ## Proyecto
 
 El proyecto cuenta con dos carpetas: `api` y `client`. En estas carpetas está el código del back-end y el front-end respectivamente.
 
 En `api` es necesario crear un archivo llamado: `.env` que tenga la siguiente forma:
-
 ```
 DB_USER=usuariodepostgres
 DB_PASSWORD=passwordDePostgres
 DB_HOST=localhost
 ```
 (Reemplazar `usuariodepostgres` y `passwordDePostgres` con tus propias credenciales para conectarte a postgres.)
-
 Adicionalmente, será necesario crear desde psql una base de datos llamada `pokemon`.
 
 El contenido de `client` fue creado usando: Create React App.
@@ -71,7 +55,6 @@ En esta aplicación se pueden ver los distintos Pokemon utilizando la api extern
 - [ ] Sequelize - Postgres
 
 #### Frontend
-
 Contiene las siguientes pantallas/rutas:
 
 __Pagina inicial__: "/" landing page con 
@@ -80,13 +63,13 @@ __Pagina inicial__: "/" landing page con
 
 __Ruta principal__: "/home" contiene
 - [ ] Input de búsqueda para encontrar pokemons por nombre (La búsqueda es exacta, es decir solo encontrará al pokemon si se coloca el nombre completo)
-- [ ] Área donde se verá el listado de pokemons. Al iniciar carga los primeros 40 resultados obtenidos desde la ruta `GET /pokemons` y muestra su:
+- [ ] Al iniciar carga los primeros 40 resultados obtenidos desde la ruta `GET /pokemons` y muestra su:
   - Imagen
   - Nombre
-  - Tipos (Electrico, Fuego, Agua, etc)
+  - Tipos (Eléctrico, Fuego, Agua, etc)
 - [ ] Opciones para filtrar por tipo de pokemon y por pokemon existente o creado por nosotros
-- [ ] Opciones para ordenar tanto ascendentemente como descendentemente los pokemons por orden alfabético y por ataque
-- [ ] Paginado para ir buscando y mostrando los siguientes pokemons, 12 pokemons por página.
+- [ ] Opciones para ordenar tanto ascendente como descendentemente los pokemons por orden alfabético y por ataque
+- [ ] Paginado para ir buscando y mostrando los siguientes pokemons, muestra 12 pokemons por página.
 
 __IMPORTANTE__: Dentro de la Ruta Principal se muestran los pokemons traidos desde la API como así también las de la base de datos. Por otro lado, el endpoint que trae todos los pokemons contiene una URL para hacer un subrequest para obtener la información detalada de los pokemons desde allí, como son su imagen y tipos. Debido a que esto puede hacer que la búsqueda sea muy lenta, se limita el resultado a 40 pokemons totales.
 
@@ -103,7 +86,7 @@ __Ruta de creación__: contiene
 
 #### Base de datos
 
-El modelo de la base de datos tiene las siguientes entidades (las propiedades señaladas con * son requeridas):
+El modelo de la base de datos tiene las siguientes entidades (las propiedades señaladas con * son obligatorias):
 
 - [ ] Pokemon con las siguientes propiedades:
   - ID (Número de Pokemon) * : No puede ser un ID de un pokemon ya existente en la API pokeapi
