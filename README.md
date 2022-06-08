@@ -10,7 +10,7 @@
 - Usé y practiqué testing.
 - Esta App permite mostrar los datos obtenidos a partir de las consultas a la API externa [pokeapi]
 
-__IMPORTANTE:__ Es necesario contar minimamente con la última versión estable de Node y NPM, para poder instalar correctamente las dependecias necesarias para correr el proyecto.
+__IMPORTANTE:__ Es necesario contar minimamente con Node v14.18.1 y NPM v8.1.3, para poder instalar correctamente las dependecias necesarias para correr el proyecto.
 
 ## Proyecto
 
