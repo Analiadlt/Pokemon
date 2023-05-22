@@ -24,7 +24,7 @@ import {useDispatch} from 'react-redux';
             <img src={landing} alt="Pokemon" />
             <div>
                 <Link to='/home'>
-                    <button className={styles.enter}>Enter</button>
+                    <button className={styles.enter}></button>
                 </Link>
             </div>
         </div>

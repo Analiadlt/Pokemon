@@ -113,7 +113,7 @@ export default function Home (){
 			return (
 				<>
 				<Link to={"/home/" + pok.id}>
-					<PokemonCard key={id} id={pok.id} name={pok.name} image={pok.img} types={pok.types} />
+					<PokemonCard key={pok.id+pok.name} id={pok.id} name={pok.name} image={pok.img} types={pok.types} />
 				</Link>
 				</>
 			);		

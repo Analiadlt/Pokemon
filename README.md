@@ -21,9 +21,10 @@ En `api` es necesario crear un archivo llamado: `.env` que tenga la siguiente fo
 DB_USER=usuariodepostgres
 DB_PASSWORD=passwordDePostgres
 DB_HOST=localhost
+PORT=3001
 ```
 (Reemplazar `usuariodepostgres` y `passwordDePostgres` con tus propias credenciales para conectarte a postgres.)
-Adicionalmente, será necesario crear desde psql una base de datos llamada `pokemon`.
+Adicionalmente, será necesario crear desde psql una base de datos llamada `pokemon` (usando CREATE DATABASE pokemon).
 
 El contenido de `client` fue creado usando: Create React App.
 
