@@ -2,14 +2,8 @@ require("dotenv").config();
 const { Sequelize } = require("sequelize");
 const fs = require("fs");
 const path = require("path");
-const { DATABASE_URL } = process.env;
 const { DB_USER, DB_PASSWORD, DB_HOST } = process.env;
-let db = "";
-if (DATABASE_URL) {
-  db = DATABASE_URL;
-} else {
-  db = `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/pokemon`;
-}
+const db = `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/pokemon`;
 
 const sequelize = new Sequelize(db, {
   logging: false, // set to console.log to see the raw SQL queries
