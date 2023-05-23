@@ -1,6 +1,7 @@
 import axios from 'axios';
 const port = process.env.PORT || `http://localhost:3001`;
 
+console.log('PORT ', port)
 export function getPokemons() {
 	return async function(dispatch){
 		// var json= await axios.get(`http://localhost:3001/pokemons`);
