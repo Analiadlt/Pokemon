@@ -10,7 +10,7 @@ export default function Card({name, image, types, id}) {
 				<label>Types</label>
 				<h4>{ (typeof id === 'number')? 
 							types?.reduce((e1,e2) => e1 + '-' + e2)
-							: types?.map(el=>el.name + '- ')
+							: types?.map((el)=>el.name + '- ')
 						}</h4>
 			</div>	
 		</div>
