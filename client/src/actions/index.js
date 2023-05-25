@@ -1,5 +1,5 @@
 import axios from 'axios';
-const port = process.env.PORT || `http://localhost:3001`;
+const port = `https://pokemonapi-0q8i.onrender.com` || `http://localhost:3001`;
 
 console.log('PORT ', port)
 export function getPokemons() {
